@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+tr:nth-child(even) {background-color: #cceeff}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+	<caption><font size = 5 >Customers Data</font></caption>
+		<tr bgcolor = "002db3">
+			<td>No.</td><td>ID</td><td>NAME</td><td>EMAIL</td><td>CITY</td><td>PINCODE</td><td>ORDERS</td><td>EDIT</td><td>DELETE</td>
+		</tr>
+
+		<%len=@customer.size%>
+		<%for i in 0..len-1%>
+			<tr >
+				<td><%= link_to i+1, customer_path(@customer[i]) %></td>
+				<td><%=@customer[i].id%></td>
+				<td><%=@customer[i].name%></td>
+				<td><%=@customer[i].email%></td>
+				<td><%=@customer[i].city%></td>
+				<td><%=@customer[i].pincode%></td>
+				<td><%= button_to "Orders",cust_order_customer_path(@customer[i]),method: :get%></td>
+				<td><%= button_to "Edit",edit_customer_path(@customer[i]),method: :get%></td>
+				<td><%= button_to "delete",customer_path(@customer[i]), method: :delete %></td>
+			</tr>
+		<%end%>	
+	</table>
+
+
+<br />
+<%=button_to "Create_New_Entry", new_customer_path(), method: :get %>
+
+</body>
+</html>

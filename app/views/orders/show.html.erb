@@ -1,0 +1,38 @@
+<%Rails.logger.debug "In show methoddddddd html page: #{params.inspect}"%>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+tr:nth-child(even) {background-color: #ffcc99}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+	<caption><font size = 5 >Items Data</font></caption>
+		<tr bgcolor="ff4d4d">
+			<td>No.</td><td>ID</td><td>CUSTOMER_ID</td><td>CUSTOMER_NAME</td><td>ITEM_ID</td><td>ITEM_NAME</td>
+		</tr>
+
+		<tr >
+			<td>1</td>
+			<td><%=@order[:id]%></td>
+			<td><%=@order[:customer_id]%></td>
+			<td><%=@cust_name%></td>
+			<td><%=@order[:item_id]%></td>
+			<td><%=@item_name%></td>
+		</tr>
+	</table>
+
+
+<br />
+<%= link_to "Home_Page", { action: :index, controller: :orders }, method: :get %>
+
+</body>
+</html>

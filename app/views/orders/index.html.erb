@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+tr:nth-child(even) {background-color: #99ebff}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+	<caption><font size = 5 >Orders Data</font></caption>
+		<tr bgcolor = "007a99">
+			<td>No.</td><td>ID</td><td>CUST_ID</td><td>ITEM_ID</td><td>EDIT</td><td>DELETE</td>
+		</tr>
+
+		<%len=@orders.size%>
+		<%for i in 0..len-1%>
+			<tr >
+				<td><%= link_to i+1, order_path(@orders[i]) %></td>
+				<td><%=@orders[i].id%></td>
+				<td><%=@orders[i].customer_id%></td>
+				<td><%=@orders[i].item_id%></td>
+				<td><%= button_to "Edit",edit_order_path(@orders[i]),method: :get%></td>
+				<td><%= button_to "delete",order_path(@orders[i]), method: :delete %></td>
+			</tr>
+		<%end%>	
+	</table>
+
+
+<br />
+<%=button_to "Create_New_Entry", new_order_path(), method: :get %>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+<form action="/orders" method="post"> 
+
+	
+<%if false%>	
+	<div>Customer_Name:</div>
+	<select name = "cust_id">
+		<%@customers.each do |k|%>
+		<option value = <%=k.id%> ><%=k.name%></option>
+		<%end%>
+	</select><br /><br />
+
+
+	<div>Item_Name:</div>
+	<select name = "item_add_id">
+		<%@items.each do |k|%>
+		<option value = <%=k.id%> ><%=k.name%></option>
+		<%end%>
+	</select><br /><br />
+<%end%>
+
+	<div>Customer_Name:</div>
+	<%=select("order", "customer_id", @customers.collect { |k| [k.name, k.id] })%><br /><br />
+	<div>Item_Name:</div>
+	<%=select("order", "item_id", @items.collect { |k| [k.name, k.id] })%><br /><br />
+		
+	<input type="submit" value="Submit">
+		
+</form>
+<br />
+<%= link_to "Home_Page", { action: :index, controller: :orders }, method: :get %>
+
+
+
+
+
+
+
+
+<%if false%>
+<%= form_tag(action: :create, method: "post") do %>
+  <%= radio_button_tag(:age, "child") %>
+<%= label_tag("I am younger than 21") %>
+<%= radio_button_tag(:age, "adult") %>
+<%= label_tag(:age_adult, "I'm over 21") %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% options = options_for_select(Customer.all, 'name') %>
+<%= f.select :name,  options %>
+
+<%= f.collection_select :customer_id, Customer.order(:name),:id,:name, include_blank: true %>
+<%end%>

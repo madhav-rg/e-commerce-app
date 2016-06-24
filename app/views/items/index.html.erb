@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+tr:nth-child(even) {background-color: #ffcc99}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+	<caption><font size = 5 >Items Data</font></caption>
+		<tr bgcolor = "ff4d4d">
+			<td>No.</td><td>ID</td><td>NAME</td><td>PRICE</td><td>EDIT</td><td>DELETE</td>
+		</tr>
+
+		<%len=@items.size%>
+		<%for i in 0..len-1%>
+			<tr >
+				<td><%= link_to i+1, item_path(@items[i]) %></td>
+				<td><%=@items[i].id%></td>
+				<td><%=@items[i].name%></td>
+				<td><%=@items[i].price%></td>
+				<td><%= button_to "Edit",edit_item_path(@items[i]),method: :get%></td>
+				<td><%= button_to "Delete",item_path(@items[i]), method: :delete %></td>
+			</tr>
+		<%end%>	
+	</table>
+
+
+<br />
+<%=button_to "Create_New_Entry", new_item_path(), method: :get %>
+
+</body>
+</html>

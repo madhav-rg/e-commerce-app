@@ -1,0 +1,19 @@
+<% if @item.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@item.errors.count, "error") %> <%=t("automatic_reports.error_saving_auto_report")%></h2>
+
+		<ul>
+			<% @item.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+Enter the Customer information.
+
+	<%= form_for :item, url: {action: "update", controller: :items}, method: "put"  do |k| %>
+		Name: <%=k.text_field :name%><br />
+		Price: <%=k.text_field :price%><br />
+		<%=k.submit%>
+	<% end %>

@@ -1,0 +1,30 @@
+<% if @order.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@order.errors.count, "error") %> <%=t("automatic_reports.error_saving_auto_report")%></h2>
+
+		<ul>
+			<% @order.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+
+
+Can edit the contents.
+
+
+<%= form_for :order, url: {action: "update", controller: :orders}, method: "put"  do |k| %>
+
+<br />
+<div>Customer_Name:</div>
+		<%=select("order", "customer_id", @cust_list.collect { |k| [k.name, k.id] }, selected: @order[:customer_id] )%><br /><br />
+	<div>Item_Name:</div>
+		<%=select("order", "item_id", @item_list.collect { |k| [k.name, k.id] }, selected: @order[:item_id] )%><br /><br />	
+	<%=k.submit%>
+
+<% end %>
+
+<br />
+<%= link_to "Home_Page", { action: :index, controller: :orders }, method: :get %>
