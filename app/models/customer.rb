@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  attr_accessible :city, :email, :name, :pincode
+  attr_accessible :city, :email, :name, :pincode, :user_id
 
   has_many :items, through: :orders
   has_many :orders, dependent: :destroy

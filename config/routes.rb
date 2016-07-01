@@ -1,6 +1,8 @@
 Assignment::Application.routes.draw do
 
 
+  devise_for :users
+
   resources :customers do
     member do
       get 'cust_order'
@@ -32,30 +34,15 @@ resources :orders do
     
   end
 
+  get 'users', :to => 'users#index'
+  get 'users/orders', :to => 'users#user_orders'
+  
+root to: 'customers#index'
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+as :user do
+  get 'users', :to => 'users#index', :as => :user_root
+end
 
 
 
@@ -115,4 +102,6 @@ resources :orders do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+
+
 end

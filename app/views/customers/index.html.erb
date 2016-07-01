@@ -1,3 +1,5 @@
+<%=current_user.id.inspect%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,7 @@ tr:nth-child(even) {background-color: #cceeff}
 				<td><%=@customer[i].pincode%></td>
 				<td><%= button_to "Orders",cust_order_customer_path(@customer[i]),method: :get%></td>
 				<td><%= button_to "Edit",edit_customer_path(@customer[i]),method: :get%></td>
-				<td><%= button_to "delete",customer_path(@customer[i]), method: :delete %></td>
+				<td><%= button_to "Delete",customer_path(@customer[i]), method: :delete %></td>
 			</tr>
 		<%end%>	
 	</table>

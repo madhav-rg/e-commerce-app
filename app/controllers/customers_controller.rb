@@ -79,6 +79,7 @@ def create
 end
 
 def new
+	
 	@customer = Customer.new()	
 	respond_to do |format|
 	  	format.json do 
@@ -87,14 +88,16 @@ def new
 	  	format.html do
 	  	end
 	  end
+
 end
 
 def cust_order
 	
 	Rails.logger.debug "In customer_order methoddddddddddddd: #{params.inspect}"
-	cust = Customer.find(params[:id])
-	@orders = cust.orders
-	Rails.logger.debug "In cust_orderrrrrrrrrrrrrr methoddddd: #{@orders.inspect}"
+	cust = User.find(params[:id])
+	@orders = current_user.orders
+	Rails.logger.debug "In cust_orderrrrrrrrrrrrrr methoddddd: #{cust.inspect}"
+	redirect_to orders_path(@orders)
 end
 
 

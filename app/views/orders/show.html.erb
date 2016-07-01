@@ -17,16 +17,18 @@ tr:nth-child(even) {background-color: #ffcc99}
 	<table style="width:100%">
 	<caption><font size = 5 >Items Data</font></caption>
 		<tr bgcolor="ff4d4d">
-			<td>No.</td><td>ID</td><td>CUSTOMER_ID</td><td>CUSTOMER_NAME</td><td>ITEM_ID</td><td>ITEM_NAME</td>
+			<td>No.</td><td>ID</td><td>USER_ID</td><td>CUSTOMER_NAME</td><td>ITEM_ID</td><td>ITEM_NAME</td><td>QUANTITY</td><td>ITEM_PRICE</td>
 		</tr>
 
 		<tr >
 			<td>1</td>
 			<td><%=@order[:id]%></td>
-			<td><%=@order[:customer_id]%></td>
+			<td><%=@order[:user_id]%></td>
 			<td><%=@cust_name%></td>
 			<td><%=@order[:item_id]%></td>
 			<td><%=@item_name%></td>
+			<td><%=@order[:quantity]%></td>
+			<td><%=Item.find(@order[:item_id])[:price] * @order[:quantity]%></td>
 		</tr>
 	</table>
 

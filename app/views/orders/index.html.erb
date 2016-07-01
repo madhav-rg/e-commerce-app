@@ -12,29 +12,70 @@ th, td {
 tr:nth-child(even) {background-color: #99ebff}
 </style>
 </head>
-<body>
-	<table style="width:100%">
-	<caption><font size = 5 >Orders Data</font></caption>
-		<tr bgcolor = "007a99">
-			<td>No.</td><td>ID</td><td>CUST_ID</td><td>ITEM_ID</td><td>EDIT</td><td>DELETE</td>
-		</tr>
+	<body>
+		<%total_price = 0%>
+		
+			<table style="width:100%">
+			<caption><font size = 5 >Orders Data</font></caption>
+				<tr bgcolor = "007a99">
+					<td>No.</td><td>ID</td><td>USER_ID</td><td>ITEM_ID</td><td>ITEM_NAME</td><td>QUANTITY</td><td>ITEM_PRICE</td><td>EDIT</td><td>DELETE</td>
+				</tr>
+				<%len=@orders.size%>
+				
+				<%for i in 0..len-1%>
+					<%item_name = Item.find(@orders[i].item_id)[:name]%>
+					<%item_price_each = Item.find(@orders[i].item_id)[:price]%>
+					<%item_quantity = @orders[i].quantity%>
+					<%item_price = item_quantity * item_price_each%>
+					<%total_price = total_price + item_price%>
+					<tr >
+						<td><%= link_to i+1, order_path(@orders[i]) %></td>
+						<td><%=@orders[i].id%></td>
+						<td><%=@orders[i].user_id%></td>
+						<td><%=@orders[i].item_id%></td>
+						<td><%=item_name%></td>
+						<td>
+								<%= form_for( :order, :url => "update_quantity",:html =>{:id => 'order_form'}, :method => "put")  do |k| %>
+								<%=k.select :quantity,options_for_select(0 .. 100,item_quantity)%>
+								<%end%>
+						</td>
+						<td><%=item_price%></td>
+						<td><%= button_to "Edit", edit_order_path(@orders[i]),method: :get%></td>
+						<td><%= button_to "delete", order_path(@orders[i]), method: :delete %></td>
+					</tr>
+				<%end%>	
+			</table>
+		
 
-		<%len=@orders.size%>
-		<%for i in 0..len-1%>
-			<tr >
-				<td><%= link_to i+1, order_path(@orders[i]) %></td>
-				<td><%=@orders[i].id%></td>
-				<td><%=@orders[i].customer_id%></td>
-				<td><%=@orders[i].item_id%></td>
-				<td><%= button_to "Edit",edit_order_path(@orders[i]),method: :get%></td>
-				<td><%= button_to "delete",order_path(@orders[i]), method: :delete %></td>
-			</tr>
-		<%end%>	
-	</table>
+	<br />
+	<div>The Total Price of all the items: <%=total_price%></div>
+	<br />
+	<%=button_to "Add_New_Items", items_path(), method: :get %>
+	<br />
+	<%=link_to "Customer_Home_Page",users_path(),method: :get%>
+	<br /><br />
+	<%=link_to "Items_Home_Page",items_path(),method: :get%>
+
+	</body>
 
 
-<br />
-<%=button_to "Create_New_Entry", new_order_path(), method: :get %>
 
-</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	debugger;
+	$("select").bind("change", function () {
+		debugger;
+		$.ajax({
+			type: "POST",
+			url: 'http://localhost:3000/orders/new',
+			data: { my_param:  $(this).val()},
+			debugger;
+		})
+
+	})
+})
+ 
+</script>
+
 </html>
