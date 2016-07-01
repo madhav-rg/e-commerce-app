@@ -1,0 +1,42 @@
+<%=current_user.id.inspect%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+tr:nth-child(even) {background-color: #cceeff}
+</style>
+</head>
+<body>
+	<table style="width:100%">
+	<caption><font size = 5 >Customers Data</font></caption>
+		<tr bgcolor = "002db3">
+			<td>No.</td><td>ID</td><td>NAME</td><td>EMAIL</td><td>CITY</td><td>PINCODE</td><td>ORDERS</td><td>EDIT</td>
+		</tr>
+
+			<tr >
+				<td><%=1%></td>
+				<td><%=current_user.id%></td>
+				<td><%=current_user.mid_name%></td>
+				<td><%=current_user.email%></td>
+				<td></td>
+				<td></td>
+				<td><%= button_to "Orders",orders_path(),method: :get%></td>
+				<td><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></td> 
+			</tr>
+	</table>
+
+
+<br />
+<%=button_to "Place Orders", items_path(), method: :get %>
+
+
+</body>
+</html>
